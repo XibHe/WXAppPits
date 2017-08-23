@@ -11,7 +11,7 @@
           67882932222222222</text>
   </view>
 ```
-微信编译器识别到text前的空格的问题。修改如下:
+微信编译器识别到text中含有空行导致。修改如下:
 
 ```objetive-c
   <view class="mod t-sign-time">
