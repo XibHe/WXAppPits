@@ -78,3 +78,10 @@ active为选中时改变背景需要调用的样式。
 ### 参考资料
 
 [小程序中的循环列表，在点击时改变当前项的背景颜色](http://www.wxapp-union.com/portal.php?mod=view&aid=1509)
+
+## 初始状态的属性名称相同导致同时加载两个页面视图
+
+```
+<view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus1}}"></view>
+```
+其中，showModalStatus1与另一个名称为showModalStatus的属性值冲突。
