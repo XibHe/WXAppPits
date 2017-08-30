@@ -113,3 +113,26 @@ active为选中时改变背景需要调用的样式。
 ### 参考资料
 
 [小程序操作按钮悬浮固定在底部](http://www.mntuku.cn/index.php/article/show/id-7141)
+
+## 页面滚动范围设置
+
+页面底部一个操作按钮，按钮上面是一个列表。为了在滚动列表时，底部按钮固定不动，需要设置页面的滚动范围。
+
+.wxml文件:
+
+```
+<view class="page">
+   <view class="useWrap" style="height:{{winHeight-60}}px;overflow:hidden;">
+       <view  style="height:{{winHeight-60}}px;overflow:scroll;">
+         <view data-index="{{index}}" class="mod t-sign-time" wx:for="{{classifyList}}" bindtap="selectedTap">
+         <text data-index="{{index}}" class="content" bindtap="selectedTap">{{item}}</text>
+         <image class="normal {{index == activeItemIndex ? 'selecteIcon':'unselecteIcon'}}" src="/image/selected.png" mode="center"></image>  
+         </view> 
+      </view>   
+   </view>
+</view>
+<button class="sureBtn" bindtap="sureBtnClick">确定</button>
+```
+
+其中，<view class="useWrap" style="height:{{winHeight-60}}px;overflow:hidden;"> 和 <view  style="height:{{winHeight-60}}px;overflow:scroll;"> 即为设置的滚动范围，{{winHeight-60}}是为了减去距离底部固定按钮的高度，在此范围进行滚动。
+
