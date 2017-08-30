@@ -85,3 +85,31 @@ active为选中时改变背景需要调用的样式。
 <view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus1}}"></view>
 ```
 其中，showModalStatus1与另一个名称为showModalStatus的属性值冲突。
+
+## 操作按钮悬浮固定在底部
+
+以收货地址为例，将添加地址按钮悬浮于最底部，这样再多的地址，也不会被遮挡而看不见。常见的有加入购物车按钮、结算按钮、收货列表添加地址按钮。
+
+核心代码，如下:
+
+```
+<button bindtap=add type=primary class=address-add>添加button>
+/*添加地址按钮*/
+.address-add {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+```
+考虑到按钮自身占据46px高度，因此地址列表还需要加上如下样式:
+
+```
+/*地址列表包装容器*/
+.address-list {
+    margin-bottom: 46px;
+}
+```
+
+### 参考资料
+
+[小程序操作按钮悬浮固定在底部](http://www.mntuku.cn/index.php/article/show/id-7141)
