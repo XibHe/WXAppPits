@@ -210,3 +210,35 @@ onLoad: function (e) {
 
 [动态的显示或隐藏控件](http://www.wxapp-union.com/portal.php?mod=view&aid=1261)
 
+## 反向传值
+
+有两个页面，这里定为页面A和页面B。点击页面A跳转至页面B，页面B中有一个确定按钮，需要在点击按钮时，将页面B中的某个数据传递给页面A。这里通过从页面路由栈中直接获取和操作目标Page对象。
+
+这种方式，是通过调用小程序的API: getCurrentPages()，来获取当前页面路由栈的信息，这个路由栈中按照页面的路由顺序存放着相应的Page对象，我们可以很容易的获取到上一级页面的完整Page对象，从而使直接调用Page对象的属性和方法成为可能。
+
+在页面B中的js文件中触发确定按钮的tap方法，并返回页面A,
+
+```
+  /**
+   * 点击确定按钮
+   */
+  sureBtnClick: function () {
+    var that=this;
+    var pages = getCurrentPages();
+    var currPage = pages[pages.length - 1];   //当前页面
+    var prevPage = pages[pages.length - 2];  //上一个页面
+    //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+    prevPage.setData({
+      mydata: that.data.a,
+    })
+
+    wx.navigateBack({
+
+    })
+ }
+```
+页面中只需要在对应的.wxml文件中调用{{mydata}}即可获取页面B中回传的值。
+
+### 参考资料
+
+[微信小程序从子页面退回父页面时的数据传递](http://www.jianshu.com/p/aa8254b23847)
