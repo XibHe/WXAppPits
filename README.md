@@ -167,5 +167,46 @@ onLoad: function (e) {
     })
 },
 ```
+## 动态的显示或隐藏控件(自定义单项选择样式)
 
+显示控件调用.selecteIcon，隐藏控件调用.unselecteIcon。通过属性display来控制。
+
+.wxss中的样式如下:
+
+```
+/* 选中 */
+.selecteIcon {
+  display: block;
+  width: 20px;
+  height: 25px;
+  margin-right: 30px;
+}
+
+/* 未选中 */
+.unselecteIcon {
+  display: none;
+  width: 20px;
+  height: 25px;
+}
+```
+
+在初始状态下，需要给控件一个初始样式，
+
+```
+/* 初始样式 */
+.normal {
+  width: 20px;
+  height: 25px;
+}
+```
+
+在点击时选中当前行，需要进行进行判断，通过数组的index确定当前行是否被选中，被选中即为activeItemIndex，.wxml代码如下，
+
+```
+<image class="normal {{index == activeItemIndex ? 'selecteIcon':'unselecteIcon'}}" src="/image/selected.png" mode="center"></image>  
+```
+这种样式写法，也可用于自定义单选样式。
+### 参考资料
+
+[动态的显示或隐藏控件](http://www.wxapp-union.com/portal.php?mod=view&aid=1261)
 
