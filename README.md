@@ -132,7 +132,40 @@ active为选中时改变背景需要调用的样式。
    </view>
 </view>
 <button class="sureBtn" bindtap="sureBtnClick">确定</button>
+
 ```
 
-其中，<view class="useWrap" style="height:{{winHeight-60}}px;overflow:hidden;"> 和 <view  style="height:{{winHeight-60}}px;overflow:scroll;"> 即为设置的滚动范围，{{winHeight-60}}是为了减去距离底部固定按钮的高度，在此范围进行滚动。
+其中，
+
+```
+ <view class="useWrap" style="height:{{winHeight-60}}px;overflow:hidden;">
+```
+和
+
+```
+<view  style="height:{{winHeight-60}}px;overflow:scroll;">
+```
+即为设置的滚动范围，
+
+```
+height:{{winHeight-60}}
+```
+是为了减去距离底部固定按钮的高度，在此范围进行滚动。
+
+其中winHeight为在.js中获取到的当前屏幕的高度。
+```
+onLoad: function (e) {
+    var _this = this;
+    //获取屏幕高度
+    wx.getSystemInfo({
+      success: function (res) {
+        _this.setData({
+          winWidth: res.windowWidth,
+          winHeight: res.windowHeight
+        })
+      }
+    })
+},
+```
+
 
