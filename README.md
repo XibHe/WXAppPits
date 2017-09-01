@@ -242,3 +242,29 @@ onLoad: function (e) {
 ### 参考资料
 
 [微信小程序从子页面退回父页面时的数据传递](http://www.jianshu.com/p/aa8254b23847)
+
+## bindtap事件传递
+
+```
+data.currentTarget.dataset.index
+```
+与
+
+```
+data.target.dataset.index
+```
+的区别:
+
+target 触发事件的源组件，currentTarget 事件绑定的当前组件。如果你在父容器上绑定了事件并传参，当你点击父容器时，事件绑定的组件和触发事件的源组件是同一个元素，所以currentTarget 、target 都可以拿到参数，但是当你点击子元素时，target 就不是事件绑定的组件了，所以拿不到参数。
+ 
+由于事件冒泡的机制，父容器上绑定的事件依然可以触发，所以currentTarget 依然可以拿到参数。
+
+举个例子，
+
+view标签 加 bindtap事件，用data-name传值，如果view中只有文字，点击整个view区域都可以接收到data-name的值，如果view里面加一个lable标签，那么点击lable包裹的区域，data-name取不到值。  
+
+解决方法：把取值方式  由e.target.dataset.carrierName  修改为e.currentTarget.dataset.carrierName即可！
+
+
+
+
