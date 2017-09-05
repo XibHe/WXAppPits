@@ -311,7 +311,49 @@ success: function(res) {
 
 发现日志一直会报"can not find variate commodity_name"，并且无法赋值。经过一番周折，试着将所有带下划线的变量名使用驼峰式命名，就可以正常赋值了。看来小程序不支持下划线命名。
 
-## 在编辑完文件后忘记保存文件，导致
+## 在编辑完文件后忘记保存文件，导致运行时没有实际改变的问题。
+
+## 切换不同Ip的调试环境
+
+在调试接口时往往需要连接不同端口的IP，这里就需要设置一种可以灵活切换IP的方式。所有，在项目中引入了名为requestUrl.js的文件，在该文件中配置不同的Ip。
+
+```
+var ApiRootUrl = 'http://192.168.10.11:8038'
+module.exports = {
+   RequestUrl1: ApiRootUrl + 'a/b',
+   RequestUrl2: ApiRootUrl + 'c/d',
+   RequestUrl3: ApiRootUrl + 'e/f',
+   RequestUrl4: ApiRootUrl + 'g/h',
+};
+```
+其中，变量ApiRootUrl为需要单独配置的用于切换的不同Ip。module.exports里为声明的，根据ApiRootUrl和访问路径拼接而成的url。
+
+使用时需要在调用的.js文件中引入requestUrl.js文件:
+
+```
+const requestUrl = require('../../config/requestUrl.js');
+```
+
+在请求接口的request方法的url参数中，调用常量requestUrl，
+
+```
+wx.request({
+   url: requestUrl. RequestUrl1,
+})
+```
+### 特别提醒
+
+这里的requestUrl.js文件是放在与pages目录平级的目录config下的。因此，当在pages目录下引入时，引入路径设置为:
+
+```
+const requestUrl = require('../../config/requestUrl.js');
+```
+
+若此时pages目录下，需要访问requestUrl.js的页面又放在了另外一个目录下，则需要再原来基础之上，再引入一层，引入路径设置为:
+
+```
+const requestUrl = require('../../../config/requestUrl.js');
+```
 
 
 
