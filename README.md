@@ -265,6 +265,52 @@ view标签 加 bindtap事件，用data-name传值，如果view中只有文字，
 
 解决方法：把取值方式  由e.target.dataset.carrierName  修改为e.currentTarget.dataset.carrierName即可！
 
+## 请求接口后使用that.setData无法为变量赋值
+
+在页面的.js文件中的Page方法中为变量赋值，如下：
+
+```
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+      medicineId:null,
+      medicineType:null,
+
+      commodity_name: '',
+      commodity_code: '',
+      medicinal_formId:'',
+      specifcations:'',
+      factory:'',
+      direction:'',
+      approval_num:'',
+      categoryLabel:''   
+  },
+
+```
+之后在请求接口成功后，给变量赋值:
+
+```
+success: function(res) {
+         console.log('GetMedicinalInfoUrl res = ',res.data);
+
+         that.setData({
+           commodity_name: res.data.data.commodity_name,
+           commodity_code: res.data.data.commodity_code,
+           medicinal_formId: res.data.data.medicinal_form_id,
+           specifcations: res.data.data.specifcations,
+           factory: res.data.data.factory,
+           direction: res.data.data.direction,
+           approval_num: res.data.data.approval_num,
+           categoryLabel: res.data.category_label
+         });
+       },
+```
+
+发现日志一直会报"can not find variate commodity_name"，并且无法赋值。经过一番周折，试着将所有带下划线的变量名使用驼峰式命名，就可以正常赋值了。看来小程序不支持下划线命名。
+
 
 
 
