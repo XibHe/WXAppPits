@@ -311,6 +311,8 @@ success: function(res) {
 
 发现日志一直会报"can not find variate commodity_name"，并且无法赋值。经过一番周折，试着将所有带下划线的变量名使用驼峰式命名，就可以正常赋值了。看来小程序不支持下划线命名。
 
+## 在编辑完文件后忘记保存文件，导致
+
 
 
 
