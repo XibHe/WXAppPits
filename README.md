@@ -355,6 +355,18 @@ const requestUrl = require('../../config/requestUrl.js');
 const requestUrl = require('../../../config/requestUrl.js');
 ```
 
+## JS判断字符串是否包含某个字符
+
+```
+var tempString = "text";
+if (tempString.indexOf("xt") >= 0) {
+    // 包含某个字符
+}
+```
+若包含则返回大于等于0的整数值，若不包含则返回-1。
+
+
+
 
 
 
