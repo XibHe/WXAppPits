@@ -341,7 +341,10 @@ wx.request({
    url: requestUrl. RequestUrl1,
 })
 ```
-### 特别提醒
+
+## WAService.js:1 navigateTo:fail url not in app.json
+
+因文件夹层级关系导致无法找到对应的文件。例如，用于切换不同IP的requestUrl.js文件:
 
 这里的requestUrl.js文件是放在与pages目录平级的目录config下的。因此，当在pages目录下引入时，引入路径设置为:
 
@@ -354,6 +357,10 @@ const requestUrl = require('../../config/requestUrl.js');
 ```
 const requestUrl = require('../../../config/requestUrl.js');
 ```
+
+### 参考资料
+
+[app.json的url问题](http://www.wxapp-union.com/forum.php?mod=viewthread&tid=3611)
 
 ## JS判断字符串是否包含某个字符
 
