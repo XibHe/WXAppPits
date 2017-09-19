@@ -397,3 +397,13 @@ var that = this;
 ## 小程序页面路径只能是五层
 
 > 为了不让用户在使用小程序时造成困扰，我们规定页面路径只能是五层，请尽量避免多层级的交互方式。
+
+## 关于"undefined"的处理
+
+遇到需要判断某个变量是否被声明并赋值，若未声明，则console该变量后，在控制台会输出"undefined"，那么在判断条件里判断变量是否存在就没有什么意义了。
+
+```
+  var exp = that.data.apropertiesTextVal;  if (typeof (exp) == "undefined"){    that.setData({      showModalStatus6: false,      tag: true,  })
+```
+
+需要使用typeof转化变量。
