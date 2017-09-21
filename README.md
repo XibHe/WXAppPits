@@ -348,13 +348,13 @@ wx.request({
 
 这里的requestUrl.js文件是放在与pages目录平级的目录config下的。因此，当在pages目录下引入时，引入路径设置为:
 
-```
+```js
 const requestUrl = require('../../config/requestUrl.js');
 ```
 
 若此时pages目录下，需要访问requestUrl.js的页面又放在了另外一个目录下，则需要再原来基础之上，再引入一层，引入路径设置为:
 
-```
+```js
 const requestUrl = require('../../../config/requestUrl.js');
 ```
 
@@ -364,7 +364,7 @@ const requestUrl = require('../../../config/requestUrl.js');
 
 ## JS判断字符串是否包含某个字符
 
-```
+```js
 var tempString = "text";
 if (tempString.indexOf("xt") >= 0) {
     // 包含某个字符
@@ -390,7 +390,7 @@ App()函数用来注册一个小程序。接受一个object参数，其指定小
 
 每次读取页面的值时，都忘记使用that或this读取在page的data:{}中声明的变量。
 
-```
+```js
 var that = this;
 ```
 
@@ -402,13 +402,51 @@ var that = this;
 
 遇到需要判断某个变量是否被声明并赋值，若未声明，则console该变量后，在控制台会输出"undefined"，那么在判断条件里判断变量是否存在就没有什么意义了。
 
-```
+```js
   var exp = that.data.apropertiesTextVal;  if (typeof (exp) == "undefined"){    that.setData({      showModalStatus6: false,      tag: true,  })
 ```
 
 需要使用typeof转化变量。
 
 ## 避免快速点击，多次触发bindtap事件，造成打开多个相同页面
+
+如果点击buton触发bindtap跳转事件，可以通过设置button的disabled属性值:
+
+> disabled(是否禁用)为bool值，默认值为false(不禁用)
+
+另一种情况，点击列表某行时跳转至某个页面。当快速连续点击时会打开多个相同页面。此时，bindtap事件放置在View标签上。而view没有disabled属性，所以需要定义一个bool变量，用来替代disabled。
+
+```js
+Page({
+  data: {
+    isTapClick: true  // 避免快速点击，造成多次跳转同一页面的bool变量
+  }，
+  
+  onShow: function() {
+     var that = this;
+     that.setData({
+        isTapClick: true
+     })
+  },
+  
+  listNavigateTo: function(res) {
+     var that = this;
+     if (that.data.isTapClick) {
+        that.setData({
+           isTapClick: false
+        })
+        wx.navigateTo({
+           url: '../pages/pages'
+        })
+     }
+  }
+})
+
+```
+
+判断isTapClick是否为true，为true则执行跳转，并且每次执行时都需要将isTapClick变量置为false(正是这句设置避免了重复进行页面跳转)。
+
+每次都需要在onShow函数里再将isTapClick置为true，以便再次展示改页面时仍能点击列表。
 
 
 
