@@ -4,7 +4,7 @@
 
 ## 在wxml文件中使用text标签时内容不能与标题对齐的问题
 
-```objetive-c
+```xml
   <view class="mod t-sign-time">
           <text>商品条码</text>
           <text class="value">
@@ -13,7 +13,7 @@
 ```
 微信编译器识别到text中含有空行导致。修改如下:
 
-```objetive-c
+```xml
   <view class="mod t-sign-time">
           <text>商品条码</text>
           <text class="value">67882932222222222r33ddfdfdfdf</text>
@@ -24,7 +24,7 @@
 
 当设置display为inline-block时，遇到文本内容设置text-align: center始终无法居中的问题。虽然设置display: flex可以解决文本居中的问题，但整体View上的多个控件布局会乱。最后设置，
 
-```
+```css
 line-height: 31px;
 ```
 解决问题。(其中，31px为该视图控件的高度。) 通过设置line-height确定了显示文本内容的行高。
@@ -35,7 +35,7 @@ line-height: 31px;
 
 .wxml
 
-```
+```xml
  <view class="drawer_title">
      <view class="btn_cancel" bindtap="powerDrawer" data-statu="close">取消</view>
      <text>剂型选择</text>
@@ -45,7 +45,7 @@ line-height: 31px;
 
 .wxss
 
-```
+```css
 .drawer_title{  
   padding:15px;  
   font: 10px;  
@@ -60,7 +60,7 @@ line-height: 31px;
 ## 小程序中的循环列表，在点击时改变当前项的背景颜色
 .wxml
 
-```
+```xml
   <view class="drawer_content">
      <block wx:for="{{['注射剂1', '注射剂2', '注射剂3', '注射剂4', '注射剂', '注射剂', '注射剂','注射剂', '注射剂', '注射剂', '注射剂', '注射剂', '注射剂', '注射剂']}}">
         <text data-index="{{index}}" class="view-list {{index ==activeItemIndex ? 'active':''}}" bindtap="formTapClick">{{item}}</text>
@@ -70,7 +70,7 @@ line-height: 31px;
 ```
 其中，默认未选中的样式为view-list，需要在class中默认写上。即，
 
-```
+```css
 class="view-list {{index ==activeItemIndex ? 'active':''}}"
 ```
 active为选中时改变背景需要调用的样式。
@@ -81,7 +81,7 @@ active为选中时改变背景需要调用的样式。
 
 ## 初始状态的属性名称相同导致同时加载两个页面视图
 
-```
+```xml
 <view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus1}}"></view>
 ```
 其中，showModalStatus1与另一个名称为showModalStatus的属性值冲突。
@@ -92,7 +92,7 @@ active为选中时改变背景需要调用的样式。
 
 核心代码，如下:
 
-```
+```css
 <button bindtap=add type=primary class=address-add>添加button>
 /*添加地址按钮*/
 .address-add {
@@ -103,7 +103,7 @@ active为选中时改变背景需要调用的样式。
 ```
 考虑到按钮自身占据46px高度，因此地址列表还需要加上如下样式:
 
-```
+```css
 /*地址列表包装容器*/
 .address-list {
     margin-bottom: 46px;
@@ -120,7 +120,7 @@ active为选中时改变背景需要调用的样式。
 
 .wxml文件:
 
-```
+```xml
 <view class="page">
    <view class="useWrap" style="height:{{winHeight-60}}px;overflow:hidden;">
        <view  style="height:{{winHeight-60}}px;overflow:scroll;">
@@ -137,23 +137,24 @@ active为选中时改变背景需要调用的样式。
 
 其中，
 
-```
+```xml
  <view class="useWrap" style="height:{{winHeight-60}}px;overflow:hidden;">
 ```
 和
 
-```
+```xml
 <view  style="height:{{winHeight-60}}px;overflow:scroll;">
 ```
 即为设置的滚动范围，
 
-```
+```css
 height:{{winHeight-60}}
 ```
 是为了减去距离底部固定按钮的高度，在此范围进行滚动。
 
 其中winHeight为在.js中获取到的当前屏幕的高度。
-```
+
+```js
 onLoad: function (e) {
     var _this = this;
     //获取屏幕高度
@@ -173,7 +174,7 @@ onLoad: function (e) {
 
 .wxss中的样式如下:
 
-```
+```css
 /* 选中 */
 .selecteIcon {
   display: block;
@@ -192,7 +193,7 @@ onLoad: function (e) {
 
 在初始状态下，需要给控件一个初始样式，
 
-```
+```css
 /* 初始样式 */
 .normal {
   width: 20px;
@@ -202,7 +203,7 @@ onLoad: function (e) {
 
 在点击时选中当前行，需要进行进行判断，通过数组的index确定当前行是否被选中，被选中即为activeItemIndex，.wxml代码如下，
 
-```
+```xml
 <image class="normal {{index == activeItemIndex ? 'selecteIcon':'unselecteIcon'}}" src="/image/selected.png" mode="center"></image>  
 ```
 这种样式写法，也可用于自定义单选样式。
@@ -218,7 +219,7 @@ onLoad: function (e) {
 
 在页面B中的js文件中触发确定按钮的tap方法，并返回页面A,
 
-```
+```js
   /**
    * 点击确定按钮
    */
@@ -245,12 +246,12 @@ onLoad: function (e) {
 
 ## bindtap事件传递
 
-```
+```js
 data.currentTarget.dataset.index
 ```
 与
 
-```
+```js
 data.target.dataset.index
 ```
 的区别:
@@ -269,7 +270,7 @@ view标签 加 bindtap事件，用data-name传值，如果view中只有文字，
 
 在页面的.js文件中的Page方法中为变量赋值，如下：
 
-```
+```js
 Page({
 
   /**
@@ -292,7 +293,7 @@ Page({
 ```
 之后在请求接口成功后，给变量赋值:
 
-```
+```js
 success: function(res) {
          console.log('GetMedicinalInfoUrl res = ',res.data);
 
@@ -317,7 +318,7 @@ success: function(res) {
 
 在调试接口时往往需要连接不同端口的IP，这里就需要设置一种可以灵活切换IP的方式。所有，在项目中引入了名为requestUrl.js的文件，在该文件中配置不同的Ip。
 
-```
+```js
 var ApiRootUrl = 'http://192.168.10.11:8038'
 module.exports = {
    RequestUrl1: ApiRootUrl + 'a/b',
@@ -330,13 +331,13 @@ module.exports = {
 
 使用时需要在调用的.js文件中引入requestUrl.js文件:
 
-```
+```js
 const requestUrl = require('../../config/requestUrl.js');
 ```
 
 在请求接口的request方法的url参数中，调用常量requestUrl，
 
-```
+```js
 wx.request({
    url: requestUrl. RequestUrl1,
 })
