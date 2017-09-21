@@ -1,6 +1,6 @@
-# WXAppPits
-
-# 微信小程序填坑记录
+title: 微信小程序填坑记录
+toc: true
+---
 
 ## 在wxml文件中使用text标签时内容不能与标题对齐的问题
 
